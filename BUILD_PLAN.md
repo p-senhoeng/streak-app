@@ -8,7 +8,7 @@ Each phase has a **Done when** line — that's your acceptance check before cont
 
 ---
 
-## Phase 0 — Scaffold
+## Phase 0 — Scaffold ✅
 - Create Expo app with TypeScript template.
 - Install: `@react-navigation/native`, `@react-navigation/native-stack`, `react-native-screens`,
   `react-native-safe-area-context`, `react-native-reanimated`, `react-native-svg`,
@@ -20,7 +20,7 @@ Each phase has a **Done when** line — that's your acceptance check before cont
 
 ---
 
-## Phase 1 — Theme tokens & types
+## Phase 1 — Theme tokens & types ✅
 - `src/lib/theme.ts`: every color, radius, spacing, font size/weight from `README.md`'s Design Tokens.
 - Add the `cardShadow` helper (`{ elevation: 2 }` for Android) and bundle **Inter** via `expo-font`
   so the weight-800 titles render properly (Roboto won't). See `ARCHITECTURE.md` §6.
@@ -30,7 +30,7 @@ Each phase has a **Done when** line — that's your acceptance check before cont
 
 ---
 
-## Phase 2 — Date logic (+ tests) — DO THIS BEFORE ANY UI
+## Phase 2 — Date logic (+ tests) ✅
 - `src/lib/dates.ts`: `toDateKey`, `currentStreak`, `bestStreak`, `loggedToday`, calendar-cell
   derivation, last-7-days derivation.
 - `__tests__/dates.test.ts`: cover the tricky cases —
@@ -45,7 +45,7 @@ wrong, everything above it is wrong too.
 
 ---
 
-## Phase 3 — Store
+## Phase 3 — Store ✅
 - `src/store/StreakContext.tsx`: Context + `useReducer` with `ADD_STREAK`, `TOGGLE_TODAY`, `HYDRATE`.
 - Hydrate from AsyncStorage on mount; persist on every change once hydrated.
 - Seed with the README's sample streaks **converted to the date model** (real dates relative to
@@ -55,7 +55,7 @@ wrong, everything above it is wrong too.
 
 ---
 
-## Phase 4 — Ring component
+## Phase 4 — Ring component ✅
 - `src/components/Ring.tsx`: two-layer design, reanimated spring press-scale, opacity cross-fade,
   light haptic on tap. Props: `logged`, `size`, `onToggle`.
 
@@ -63,7 +63,7 @@ wrong, everything above it is wrong too.
 
 ---
 
-## Phase 5 — Home screen
+## Phase 5 — Home screen ✅
 - Header (title + subtitle + accent `+` button), `Composer` (conditional), `StreakCard` list, `WeekDots`.
 - Wire cards to the store; card body navigates, ring toggles (verify the ring tap does **not** navigate — pitfall #3).
 - Add-streak flow: `+` → composer → Enter/Add → appended; empty names ignored.
@@ -72,7 +72,7 @@ wrong, everything above it is wrong too.
 
 ---
 
-## Phase 6 — Detail screen
+## Phase 6 — Detail screen ✅
 - Back row, title, stat card (big count + best + ring + log label), `CalendarMonth`, legend.
 - Drive the calendar from **real** today + the selected streak's `loggedDates`.
 - Logging on Detail reflects on Home (and vice versa) — same store.
@@ -81,7 +81,7 @@ wrong, everything above it is wrong too.
 
 ---
 
-## Phase 7 — Polish
+## Phase 7 — Polish ✅
 - Loading state during hydration (pitfall #4).
 - `AppState` listener to recompute "today" when returning to foreground (pitfall #2).
 - Empty state for zero streaks.

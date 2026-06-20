@@ -15,7 +15,9 @@ type State = {
 export type Action =
   | { type: 'HYDRATE'; streaks: Streak[] }
   | { type: 'ADD_STREAK'; name: string }
-  | { type: 'TOGGLE_TODAY'; id: string };
+  | { type: 'TOGGLE_TODAY'; id: string }
+  | { type: 'DELETE_STREAK'; id: string }
+  | { type: 'MOVE_STREAK'; id: string; direction: 'up' | 'down' };
 
 // ─── Seed data ────────────────────────────────────────────────────────────────
 
@@ -99,6 +101,22 @@ function reducer(state: State, action: Action): State {
           return { ...s, loggedDates: [...dateSet].sort() };
         }),
       };
+    }
+
+    case 'DELETE_STREAK':
+      return {
+        ...state,
+        streaks: state.streaks.filter(s => s.id !== action.id),
+      };
+
+    case 'MOVE_STREAK': {
+      const from = state.streaks.findIndex(s => s.id === action.id);
+      if (from === -1) return state;
+      const to = action.direction === 'up' ? from - 1 : from + 1;
+      if (to < 0 || to >= state.streaks.length) return state;
+      const streaks = [...state.streaks];
+      [streaks[from], streaks[to]] = [streaks[to], streaks[from]];
+      return { ...state, streaks };
     }
   }
 }

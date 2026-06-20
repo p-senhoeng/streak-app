@@ -82,7 +82,8 @@ export function buildCalendarMonth(
   const loggedSet = new Set(loggedDates);
   const todayKey = toDateKey(today);
 
-  const firstDayOfWeek = new Date(year, month, 1).getDay(); // 0 = Sunday
+  // Monday-first: Mon=0 … Sun=6. getDay() returns 0=Sun,1=Mon,…6=Sat.
+  const firstDayOfWeek = (new Date(year, month, 1).getDay() + 6) % 7;
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
   const cells: CalendarCell[] = [];

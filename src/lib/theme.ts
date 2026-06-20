@@ -27,6 +27,12 @@ export const colors = {
   /** Subtle dividers and borders */
   border: '#222230',
 
+  /** Destructive actions (delete) */
+  danger: '#F87171',
+
+  /** Tinted background behind a destructive icon button */
+  dangerFill: '#3A1A1F',
+
   text: {
     primary: '#F2F2F7',
     secondary: '#8E8EA0',

@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
@@ -17,17 +18,15 @@ import type { RootStackParamList } from './src/types';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     Inter_400Regular,
     Inter_600SemiBold,
     Inter_800ExtraBold,
   });
 
-  // Hold the splash screen until fonts are ready.
-  // expo-splash-screen is wired by default in Expo managed — returning null
-  // keeps the OS splash visible (no content flash).
-  if (!fontsLoaded) {
-    return null;
+  // Block on font load; fall through on error so the app renders with system fonts.
+  if (!fontsLoaded && !fontError) {
+    return <View style={{ flex: 1, backgroundColor: colors.background }} />;
   }
 
   return (
@@ -51,7 +50,7 @@ export default function App() {
           <Stack.Screen
             name="Detail"
             component={DetailScreen}
-            options={{ title: 'Streak Detail' }}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>

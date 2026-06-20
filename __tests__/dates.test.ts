@@ -181,12 +181,13 @@ describe('buildCalendarMonth', () => {
     expect(cell).toEqual({ type: 'day', dateKey: '2024-06-30', state: 'future' });
   });
 
-  it('correctly pads the first row when month starts mid-week', () => {
-    // June 2024 starts on Saturday (day 6), so 6 leading empty cells
+  it('correctly pads the first row when month starts mid-week (Monday-first grid)', () => {
+    // June 2024 starts on Saturday. In Monday-first grid, Saturday = col 5,
+    // so there are 5 leading empty cells before June 1.
     const cells = buildCalendarMonth(2024, 5, [], today);
-    const leadingEmpties = cells.slice(0, 6);
+    const leadingEmpties = cells.slice(0, 5);
     expect(leadingEmpties.every(c => c.type === 'empty')).toBe(true);
-    expect(cells[6]).toEqual(expect.objectContaining({ type: 'day', dateKey: '2024-06-01' }));
+    expect(cells[5]).toEqual(expect.objectContaining({ type: 'day', dateKey: '2024-06-01' }));
   });
 });
 
